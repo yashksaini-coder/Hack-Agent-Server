@@ -82,6 +82,15 @@ You can test the API using Postman or any other API testing tool. The following 
     </tr>
 </table>
 
+### Workflow:
+
+<img src="./public/workflow.png" alt="Workflow" width="100%" align="center"/>
+
+
+
+
+
+
 ---
 
 <a href="https://github.com/yashksaini-coder">
