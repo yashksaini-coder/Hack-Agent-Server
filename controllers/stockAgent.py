@@ -1,8 +1,7 @@
-from fastapi import FastAPI, Query, HTTPException
-from fastapi.responses import JSONResponse
-from agno.agent import Agent, RunResponse
+from fastapi import FastAPI
+from agno.agent import Agent
 from agno.tools.yfinance import YFinanceTools
-from agno.models.google import Gemini
+from agno.models.groq import Groq
 import json
 import re
 import os
@@ -55,7 +54,7 @@ detailed_instructions = [
 
 # Initialize the agent with YFinance tools
 stock_analyzer_agent = Agent(
-    model=Gemini(id="gemini-2.0-flash", api_key=GEMINI_API_KEY),
+    model=Groq(id="llama-3.3-70b-versatile", api_key=os.getenv("GROQ_API_KEY")),
     markdown=True,
     tools=[YFinanceTools(
         stock_price=True,
@@ -88,7 +87,7 @@ def extract_json_from_response(response_content):
             try:
                 return json.loads(json_str)
             except json.JSONDecodeError:
-                print(f"Failed to parse JSON from markdown code block")
+                print("Failed to parse JSON from markdown code block")
         
         # Case 2: Check if the entire string is JSON
         try:
@@ -102,7 +101,7 @@ def extract_json_from_response(response_content):
             try:
                 return json.loads(json_match.group(0))
             except json.JSONDecodeError:
-                print(f"Failed to parse JSON from pattern match")
+                print("Failed to parse JSON from pattern match")
                 
     return None
 
