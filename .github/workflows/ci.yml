@@ -26,4 +26,4 @@ jobs:
         run: uv sync --frozen
 
       - name: Run quality checks
-        run: make quality
+        run: make ci

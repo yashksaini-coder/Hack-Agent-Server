@@ -25,7 +25,7 @@ check-format:
 typecheck:
 	uv run mypy . --ignore-missing-imports
 
-quality: check-lint check-format typecheck
+ci: check-lint check-format typecheck
 
 run:
 	uv run uvicorn app:app --host 0.0.0.0 --port 8000 --reload
