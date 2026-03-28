@@ -13,9 +13,31 @@
 > It also interacts with the Agno AI to get the predictions for the stock prices.
 
 
+## Local Development
+
+This project uses **[uv](https://github.com/astral-sh/uv)** for fast Python package management.
+
+### Installation
+
+1. Install `uv` if you haven't already:
+```bash
+curl -LsSf https://astral-sh.uv.io/install.sh | sh
+```
+
+2. Sync dependencies and create a virtual environment:
+```bash
+uv sync
+```
+
+3. Run the server locally:
+```bash
+uv run uvicorn app:app --reload
+```
+
 ## Deployment
 
-The backend server can be locally deployed using Docker. Use the following command to build and run the server:
+The backend server can be locally deployed using Docker.
+ Use the following command to build and run the server:
 
 - **Build the Docker image**
 
