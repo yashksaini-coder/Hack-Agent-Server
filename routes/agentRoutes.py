@@ -2,7 +2,7 @@ import os
 import datetime
 import json
 import requests
-from fastapi import FastAPI, APIRouter, Request, Body
+from fastapi import APIRouter, Request, Body
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel

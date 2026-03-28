@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import HTMLResponse,JSONResponse
+from fastapi.responses import JSONResponse
 from controllers.topStocks import get_top_stocks, get_stock
 from controllers.stockNews import fetch_news
 from controllers.stockAgent import stock_analyzer_agent, extract_json_from_response, create_default_stock_data, merge_stock_data
