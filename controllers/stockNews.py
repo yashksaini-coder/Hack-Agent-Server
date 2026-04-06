@@ -15,6 +15,7 @@ from agno.tools.wikipedia import WikipediaTools
 load_dotenv()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 
 if not GROQ_API_KEY:
     raise ValueError("Please provide a GROQ API key")
@@ -50,16 +51,30 @@ json_instructions = [
     '{"articles": [{"title": "...", "url": "...", "source": "...", "summary": "...", "sentiment": "...", "published_date": "..."}]}'
 ]
 
+# Build the tools list, adding TavilyTools when TAVILY_API_KEY is available
+_agent_tools: list = [
+    DuckDuckGoTools(search=True, news=True),
+    WikipediaTools(),
+    scrape_url,
+]
+
+if TAVILY_API_KEY:
+    from agno.tools.tavily import TavilyTools
+
+    _agent_tools.append(
+        TavilyTools(
+            search=True,
+            max_tokens=8000,
+            search_depth="advanced",
+        )
+    )
+
 # News agent using Groq without formal response_model to avoid conflict with tools
 news_agent = Agent(
     name="Stock News Agent",
     role="Expert financial news researcher and analyst",
     model=Groq(id="llama-3.3-70b-versatile", api_key=GROQ_API_KEY),
-    tools=[
-        DuckDuckGoTools(search=True, news=True),
-        WikipediaTools(),
-        scrape_url
-    ],
+    tools=_agent_tools,
     instructions=json_instructions,
 )
 
